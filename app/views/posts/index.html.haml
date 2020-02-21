@@ -1,0 +1,10 @@
+.container
+  .main-area
+    - @posts.each do |post|
+      .main-box
+        .main-box__content
+          = post.image
+          = simple_format(post.content)
+        .main-box__bar
+          = link_to "削除", "/posts/#{post.id}", method: :delete
+          = link_to "詳細", "/posts/#{post.id}"

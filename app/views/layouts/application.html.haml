@@ -1,0 +1,21 @@
+!!!
+%html
+  %head
+    %meta{:content => "text/html; charset=UTF-8", "http-equiv" => "Content-Type"}/
+    %title Sen-Ryu
+    = csrf_meta_tags
+    = csp_meta_tag
+    = stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track': 'reload'
+    = javascript_include_tag 'application', 'data-turbolinks-track': 'reload'
+  %body
+    %header
+      .user-name
+        %p.header 伊藤 圭
+      .space
+        = link_to '一句', new_post_path, class: 'link'
+      .serch
+        %p.header 検索
+      .logout-btn
+        = link_to "退出", "#", class: "link"
+    = yield
+    %footer

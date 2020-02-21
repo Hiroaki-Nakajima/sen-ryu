@@ -1,0 +1,7 @@
+.container
+  = form_with model: @post, class: "form", local: true do |f|
+    = f.text_field :image, class: "form__image"
+    = f.text_area :content, class: "form__text"
+    = f.submit "保存", class: "form__btn"
+      
+    
