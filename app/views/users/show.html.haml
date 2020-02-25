@@ -11,28 +11,27 @@
       .left-info
         .main-box#best
           .main-box__content
-            = @all_ranks[0].image
-            = simple_format(@all_ranks[0].content)
+            = @my_ranks[0].image
+            = simple_format(@my_ranks[0].content)
           .main-box__bar
-            = @all_ranks[0].user.name
-            = "いいね: #{@all_ranks[0].liked_users.count}"
-            = link_to "詳細", "/posts/#{@all_ranks[0].id}"
-            = link_to "削除", "/posts/#{@all_ranks[0].id}", method: :delete
-           
+            = "いいね: #{@my_ranks[0].liked_users.count}"
+            = link_to "詳細", "/posts/#{@my_ranks[0].id}"
+            = link_to "削除", "/posts/#{@my_ranks[0].id}", method: :delete
+          .main-box__user
       .right-info
+        = render partial: "relationships/follow_button", locals: {user: @user}   
     .content
       .content__best
-        - @all_ranks.each do |post|
+        - @my_ranks.each do |post|
           .main-box
             .main-box__content
               = post.image
               = simple_format(post.content)
             .main-box__bar
-              = post.user.name
               = "いいね: #{post.liked_users.count}"
               = link_to "詳細", "/posts/#{post.id}"
               = link_to "削除", "/posts/#{post.id}", method: :delete
-          
+            .main-box__user
       .content__new
         - @posts.each do |post|
           .main-box
@@ -40,8 +39,23 @@
               = post.image
               = simple_format(post.content)
             .main-box__bar
-              = link_to post.user.name, "/users/#{post.user.id}", class: "link"
               = "いいね: #{post.liked_users.count}"
               = link_to "詳細", "/posts/#{post.id}"
               = link_to "削除", "/posts/#{post.id}", method: :delete
-              
+
+      .content__new
+        - @user_ranks.each do |post|
+          .main-box
+            .main-box__content
+              = post.image
+              = simple_format(post.content)
+            .main-box__bar
+              = "いいね: #{post.liked_users.count}"
+              = link_to "詳細", "/posts/#{post.id}"
+              = link_to "削除", "/posts/#{post.id}", method: :delete
+      
+      
+      
+
+
+        

@@ -9,13 +9,23 @@
     = javascript_include_tag 'application', 'data-turbolinks-track': 'reload'
   %body
     %header
-      .user-name
-        %p.header 伊藤 圭
-      .space
-        = link_to '一句', new_post_path, class: 'link'
-      .serch
-        %p.header 検索
-      .logout-btn
-        = link_to "退出", "#", class: "link"
+      = link_to "川柳.COM", root_path, class: "link"
+      
+      = form_with url: posts_searches_path, local: true, method: :get, class: "search" do |form|
+        .search-form
+          = form.text_field :keyword, placeholder: "投稿を検索する", class: "search-form__input"
+          = form.submit "検索", class: "search-form__btn"
+        
+      = link_to '一句', new_post_path, class: 'link'
+
+      - if user_signed_in?
+        = link_to current_user.name, "/users/#{current_user.id}", class: "link"
+
+      - if user_signed_in?
+        = link_to "ログアウト", destroy_user_session_path, method: :delete
+      - else
+        = link_to "ログイン", new_user_session_path, class: 'post'
+        = link_to "新規登録", new_user_registration_path, class: 'post'
     = yield
-    %footer
+   
+        

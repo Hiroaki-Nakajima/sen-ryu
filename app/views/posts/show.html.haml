@@ -1,10 +1,38 @@
 .container
-  .main-area
-    -# - @posts.each do |post|
-    .main-box
+  .side
+    %ul
+      %li
+        = link_to "HOME", root_path, class: "link"
+      %li
+        = link_to "マイページ", "/users/#{current_user.id}", class: "link"
+      %li
+  .main
+    .main-box#show
       .main-box__content
         = @post.image
         = simple_format(@post.content)
-      -# .main-box__bar
-      -#   = link_to "削除", "/posts/#{post.id}", method: :delete
-      -#   = link_to "詳細", "/posts/#{post.id}"
+      .main-box__bar
+        = @post.user.name
+        = link_to "削除", "/posts/#{@post.id}", method: :delete
+        = link_to "詳細", "/posts/#{@post.id}"
+        = "いいね: #{@post.liked_users.count}"
+        
+      = form_with model: [@post, @comment], local: true do |f|
+        = f.text_area :text, placeholder: "コメントする", rows: "2"
+        = f.submit "SEND"
+
+      - if current_user.already_liked?(@post)
+        = button_to 'いいねを取り消す', post_like_path(@post), method: :delete
+      - else
+        = button_to 'いいね', post_likes_path(@post)
+      %p いいねしたユーザー
+      - @post.liked_users.each do |user|
+        = user.name
+
+      .main-box__comment
+        - if @comments
+          - @comments.each do |comment|
+            .comment-box
+              = comment.user.name
+              = comment.text
+    

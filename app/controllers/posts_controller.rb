@@ -2,6 +2,7 @@ class PostsController < ApplicationController
 
   def index
     @posts = Post.all 
+    @all_ranks = Post.find(Like.group(:post_id).order('count(post_id) desc').limit(3).pluck(:post_id))
   end
 
   def new
@@ -21,11 +22,14 @@ class PostsController < ApplicationController
 
   def show
     @post = Post.find(params[:id])
+    @comment = Comment.new
+    @comments = @post.comments.includes(:user)
+    @like = Like.new
   end
 
   private
   def post_params
-    params.require(:post).permit(:image, :content)
+    params.require(:post).permit(:image, :content).merge(user_id: current_user.id)
   end
 
 end
