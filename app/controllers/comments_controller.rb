@@ -2,6 +2,8 @@ class CommentsController < ApplicationController
   def create
     comment = Comment.create(comment_params)
     redirect_to "/posts/#{comment.post.id}"
+    post = Post.find(params[:post_id])
+    post.create_notification_comment!(current_user, comment.id)
   end
 
   private

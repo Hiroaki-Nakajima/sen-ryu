@@ -11,6 +11,8 @@ class RelationshipsController < ApplicationController
       flash.now[:alert] = 'ユーザーのフォローに失敗しました'
       redirect_to user
     end
+
+    user.create_notification_follow!(current_user)
   end
 
   def destroy
