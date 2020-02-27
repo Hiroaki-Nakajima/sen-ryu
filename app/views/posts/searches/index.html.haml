@@ -1,20 +1,33 @@
 .container
   .side
-    %ul
-      %li
-      %li
-      %li
+    .side-box
+      = link_to "HOME", root_path, class: "link"
+    .side-box
+      フォロー
+    - if user_signed_in?  
+      - current_user.followings.each do |user|
+        .side-box
+          = image_tag "#{user.image}", size: "30x30", alt: "アイコン画像", class: "icon"
+          = link_to user.name, "/users/#{user.id}"
+    .side-box
+      フォロワー
+    - if user_signed_in?  
+      - current_user.followers.each do |user|
+        .side-box
+          = image_tag "#{user.image}", size: "30x30", alt: "アイコン画像", class: "icon"
+          = link_to user.name, "/users/#{user.id}"
   .main
+    %p 検索結果
     .content
       .content__new
         - @posts.each do |post|
           .main-box
             .main-box__content
-              = post.image
               = simple_format(post.content)
             .main-box__bar
               = link_to "削除", "/posts/#{post.id}", method: :delete
               = link_to "詳細", "/posts/#{post.id}"
               = post.liked_users.count
             .main-box__user
+              = image_tag "#{post.user.image}", size: "30x30", alt: "アイコン画像", class: "icon"
               = post.user.name

@@ -1,4 +1,5 @@
 Rails.application.routes.draw do
+  
   devise_for :users
   root "posts#index"
   namespace :posts do
@@ -8,6 +9,6 @@ Rails.application.routes.draw do
     resources :comments, only: :create
     resources :likes, only: [:create, :destroy]
   end
-  resources :users, only: :show
+  resources :users, only: [:show, :edit, :update]
   resources :relationships, only: [:create, :destroy]
 end

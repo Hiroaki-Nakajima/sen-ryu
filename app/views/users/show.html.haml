@@ -1,59 +1,64 @@
 .container
   .side
-    %ul
-      %li
-        = link_to "HOME", root_path, class: "link"
-      %li
-        = link_to "マイページ", "/users/#{current_user.id}", class: "link"
-      %li
+    .side-box
+      = link_to "HOME", root_path, class: "link"
+    .side-box
+      フォロー
+    - if user_signed_in?  
+      - current_user.followings.each do |user|
+        .side-box
+          = image_tag "#{user.image}", size: "30x30", alt: "アイコン画像", class: "icon"
+          = link_to user.name, "/users/#{user.id}"
+    .side-box
+      フォロワー
+    - if user_signed_in?  
+      - current_user.followers.each do |user|
+        .side-box
+          = image_tag "#{user.image}", size: "30x30", alt: "アイコン画像", class: "icon"
+          = link_to user.name, "/users/#{user.id}"
   .main
+    %p いいねランク第１位
     .info
       .left-info
         .main-box#best
           .main-box__content
-            = @my_ranks[0].image
-            = simple_format(@my_ranks[0].content)
+            = simple_format(@user_ranks[0].content)
           .main-box__bar
-            = "いいね: #{@my_ranks[0].liked_users.count}"
-            = link_to "詳細", "/posts/#{@my_ranks[0].id}"
-            = link_to "削除", "/posts/#{@my_ranks[0].id}", method: :delete
+            = image_tag "#{@user_ranks[0].user.image}", size: "40x40", alt: "アイコン画像", class: "icon"
+            = "いいね: #{@user_ranks[0].liked_users.count}"
+            = link_to "詳細", "/posts/#{@user_ranks[0].id}"
+            = link_to "削除", "/posts/#{@user_ranks[0].id}", method: :delete
           .main-box__user
       .right-info
-        = render partial: "relationships/follow_button", locals: {user: @user}   
+        = render partial: "relationships/follow_button", locals: {user: @user}
+        .right-info__image 
+          = image_tag "#{@user.image}", size: "200x200", alt: "アイコン画像", class: "icon"
+        .right-info__name
+          = @user.name
+    %p いいねランク上位
     .content
       .content__best
-        - @my_ranks.each do |post|
+        - @user_ranks.each do |post|
           .main-box
             .main-box__content
-              = post.image
               = simple_format(post.content)
             .main-box__bar
-              = "いいね: #{post.liked_users.count}"
-              = link_to "詳細", "/posts/#{post.id}"
-              = link_to "削除", "/posts/#{post.id}", method: :delete
-            .main-box__user
-      .content__new
-        - @posts.each do |post|
-          .main-box
-            .main-box__content
-              = post.image
-              = simple_format(post.content)
-            .main-box__bar
+              = image_tag "#{post.user.image}", size: "30x30", alt: "アイコン画像", class: "icon"
               = "いいね: #{post.liked_users.count}"
               = link_to "詳細", "/posts/#{post.id}"
               = link_to "削除", "/posts/#{post.id}", method: :delete
 
+      %p 最新投稿
       .content__new
-        - @user_ranks.each do |post|
+        - @user_posts.each do |post|
           .main-box
             .main-box__content
-              = post.image
               = simple_format(post.content)
             .main-box__bar
+              = image_tag "#{post.user.image}", size: "30x30", alt: "アイコン画像", class: "icon"
               = "いいね: #{post.liked_users.count}"
               = link_to "詳細", "/posts/#{post.id}"
               = link_to "削除", "/posts/#{post.id}", method: :delete
-      
       
       
 

@@ -1,17 +1,27 @@
 .container
   .side
-    %ul
-      %li
-        = link_to "HOME", root_path, class: "link"
-      %li
-        = link_to "マイページ", "/users/#{current_user.id}", class: "link"
-      %li
+    .side-box
+      = link_to "HOME", root_path, class: "link"
+    .side-box
+      フォロー
+    - if user_signed_in?  
+      - current_user.followings.each do |user|
+        .side-box
+          = image_tag "#{user.image}", size: "30x30", alt: "アイコン画像", class: "icon"
+          = link_to user.name, "/users/#{user.id}"
+    .side-box
+      フォロワー
+    - if user_signed_in?  
+      - current_user.followers.each do |user|
+        .side-box
+          = image_tag "#{user.image}", size: "30x30", alt: "アイコン画像", class: "icon"
+          = link_to user.name, "/users/#{user.id}"
   .main
     .main-box#show
       .main-box__content
-        = @post.image
         = simple_format(@post.content)
       .main-box__bar
+        = image_tag "#{@post.user.image}", size: "50x50", alt: "アイコン画像", class: "icon"
         = @post.user.name
         = link_to "削除", "/posts/#{@post.id}", method: :delete
         = link_to "詳細", "/posts/#{@post.id}"
@@ -27,12 +37,14 @@
         = button_to 'いいね', post_likes_path(@post)
       %p いいねしたユーザー
       - @post.liked_users.each do |user|
+        = image_tag "#{user.image}", size: "30x30", alt: "アイコン画像", class: "icon"
         = user.name
 
       .main-box__comment
         - if @comments
           - @comments.each do |comment|
             .comment-box
+              = image_tag "#{comment.user.image}", size: "30x30", alt: "アイコン画像", class: "icon"
               = comment.user.name
               = comment.text
     
