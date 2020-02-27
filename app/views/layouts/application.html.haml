@@ -23,6 +23,8 @@
         = image_tag "#{current_user.image}", size: "40x40", alt: "アイコン画像", class: "icon"
         = link_to current_user.name, "/users/#{current_user.id}", class: "link"
 
+      = link_to "通知", notifications_path, class: 'link'
+
       - if user_signed_in?
         = link_to "ログアウト", destroy_user_session_path, method: :delete
       - else

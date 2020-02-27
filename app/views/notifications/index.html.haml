@@ -1,0 +1,26 @@
+.container
+  .side
+    .side-box
+      = link_to "HOME", root_path, class: "link"
+    .side-box
+      フォロー
+    - if user_signed_in?  
+      - current_user.followings.each do |user|
+        .side-box
+          = image_tag "#{user.image}", size: "30x30", alt: "アイコン画像", class: "icon"
+          = link_to user.name, "/users/#{user.id}"
+    .side-box
+      フォロワー
+    - if user_signed_in?  
+      - current_user.followers.each do |user|
+        .side-box
+          = image_tag "#{user.image}", size: "30x30", alt: "アイコン画像", class: "icon"
+          = link_to user.name, "/users/#{user.id}"
+  .main
+    / 自分の投稿に対するいいね、コメントは通知に表示しない
+    - notifications = @notifications.where.not(visitor_id: current_user.id)
+    - if notifications.exists?
+      = render notifications
+      = paginate notifications
+    - else
+      %p 通知はありません
