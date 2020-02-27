@@ -1,7 +1,20 @@
 .container
-  = form_with model: @post, class: "form", local: true do |f|
-    = f.text_field :image, class: "form__image"
-    = f.text_area :content, class: "form__text"
-    = f.submit "保存", class: "form__btn"
+  .side
+    .side-box
+      = link_to "HOME", root_path, class: "link"
+    .side-box
+      フォロー
+    - current_user.followings.each do |user|
+      .side-box
+        = link_to user.name, "/users/#{user.id}"
+    .side-box
+      フォロワー
+    - current_user.followers.each do |user|
+      .side-box
+        = user.name
+  .main
+    = form_with model: @post, class: "form", local: true do |f|
+      = f.text_area :content, class: "form__text"
+      = f.submit "保存", class: "form__btn"
       
     

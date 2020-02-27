@@ -5,6 +5,8 @@ class Post < ApplicationRecord
   has_many :likes
   has_many :liked_users, through: :likes, source: :user
 
+  has_many :notifications, dependent: :destroy
+
   def self.search(search)
     return Post.all unless search
     Post.where('content LIKE(?)', "%#{search}%")
