@@ -2,20 +2,26 @@
   .side
     .side-box
       = link_to "HOME", root_path, class: "link"
-    .side-box
-      フォロー
+    - if user_signed_in?
+      .side-box
+        = link_to "MyPage", "/users/#{current_user.id}", class: "link"
+      %hr
     - if user_signed_in?  
+      .side-box
+        フォロー
       - current_user.followings.each do |user|
         .side-box
           = image_tag "#{user.image}", size: "30x30", alt: "アイコン画像", class: "icon"
           = link_to user.name, "/users/#{user.id}"
-    .side-box
-      フォロワー
+      %hr
     - if user_signed_in?  
+      .side-box
+        フォロワー
       - current_user.followers.each do |user|
         .side-box
           = image_tag "#{user.image}", size: "30x30", alt: "アイコン画像", class: "icon"
           = link_to user.name, "/users/#{user.id}"
+
   .main
     %p いいねランク第１位
     .info
@@ -25,12 +31,16 @@
             = simple_format(@all_ranks[0].content)
           .main-box__bar
             = image_tag "#{@all_ranks[0].user.image}", size: "40x40", alt: "アイコン画像", class: "icon"
-            = link_to @all_ranks[0].user.name, "/users/#{@all_ranks[0].user.id}", class: "link"
+            - if user_signed_in?
+              = link_to @all_ranks[0].user.name, "/users/#{@all_ranks[0].user.id}", class: "link"
+            - else
+              = @all_ranks[0].user.name
             = "いいね: #{@all_ranks[0].liked_users.count}"
-            = link_to "詳細", "/posts/#{@all_ranks[0].id}"
-            = link_to "削除", "/posts/#{@all_ranks[0].id}", method: :delete   
+            - if user_signed_in?
+              = link_to "詳細", "/posts/#{@all_ranks[0].id}"
       .right-info
         = image_tag "senryu.com.png", size: "300x300", alt: "アイコン画像", class: "main-logo"
+        
     %p いいねランク上位
     .content
       .content__best
@@ -40,10 +50,14 @@
               = simple_format(post.content)
             .main-box__bar
               = image_tag "#{post.user.image}", size: "30x30", alt: "アイコン画像", class: "icon"
-              = link_to post.user.name, "/users/#{post.user.id}", class: "link"
+              - if user_signed_in?
+                = link_to post.user.name, "/users/#{post.user.id}", class: "link"
+              - else 
+                = post.user.name
               = "いいね: #{post.liked_users.count}"
-              = link_to "詳細", "/posts/#{post.id}"
-              = link_to "削除", "/posts/#{post.id}", method: :delete
+              - if user_signed_in?
+                = link_to "詳細", "/posts/#{post.id}"
+      %hr
 
       %p 最新投稿  
       .content__new
@@ -53,8 +67,11 @@
               = simple_format(post.content)
             .main-box__bar
               = image_tag "#{post.user.image}", size: "30x30", alt: "アイコン画像", class: "icon"
-              = link_to post.user.name, "/users/#{post.user.id}", class: "link"
+              - if user_signed_in?
+                = link_to post.user.name, "/users/#{post.user.id}", class: "link"
+              - else
+                = post.user.name
               = "いいね: #{post.liked_users.count}"
-              = link_to "詳細", "/posts/#{post.id}"
-              = link_to "削除", "/posts/#{post.id}", method: :delete
+              - if user_signed_in?
+                = link_to "詳細", "/posts/#{post.id}"
               

@@ -12,7 +12,6 @@ header {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  border-bottom: 1px solid red;
 }
 
 p {
@@ -49,7 +48,7 @@ p {
   height:100%;
   width: 240px;
   position: fixed;
-  border-right: 1px solid red;
+  overflow: scroll;
 }
 
 .side-box {
@@ -73,8 +72,8 @@ p {
   margin-left: 240px;
   width: calc(100% - 100px);
   overflow: scroll;
-  // background-image: url(kurosakura.gif);
-  background-size: cover;
+  background-color: whitesmoke;
+  padding-left: 20px;
 }
 
 .info {
@@ -99,8 +98,12 @@ p {
   }
 }
 
+.main-logo {
+  border-radius: 100%;
+}
+
 .icon {
-  border-radius: 100px;
+  border-radius: 100%;
 }
 
 .main-logo {
@@ -124,14 +127,14 @@ p {
 
 .main-box {
   height: 180px;
-  width: 20%;
-  margin: 20px 30px;
+  width: 23%;
+  margin: 20px 10px;
   &__content {
     height: 80%;
     width: 100%;
     font-size: 18px;
     writing-mode: vertical-rl;
-    background-color: lightgray;
+    background-color: white;
   }
   &__bar {
     height: 20%;

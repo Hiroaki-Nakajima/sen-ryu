@@ -2,20 +2,26 @@
   .side
     .side-box
       = link_to "HOME", root_path, class: "link"
-    .side-box
-      フォロー
+    - if user_signed_in?
+      .side-box
+        = link_to "MyPage", "/users/#{current_user.id}", class: "link"
+      %hr
     - if user_signed_in?  
+      .side-box
+        フォロー
       - current_user.followings.each do |user|
         .side-box
           = image_tag "#{user.image}", size: "30x30", alt: "アイコン画像", class: "icon"
           = link_to user.name, "/users/#{user.id}"
-    .side-box
-      フォロワー
+      %hr
     - if user_signed_in?  
+      .side-box
+        フォロワー
       - current_user.followers.each do |user|
         .side-box
           = image_tag "#{user.image}", size: "30x30", alt: "アイコン画像", class: "icon"
           = link_to user.name, "/users/#{user.id}"
+
   .main
     %p 検索結果
     .content
@@ -25,9 +31,11 @@
             .main-box__content
               = simple_format(post.content)
             .main-box__bar
-              = link_to "削除", "/posts/#{post.id}", method: :delete
-              = link_to "詳細", "/posts/#{post.id}"
-              = post.liked_users.count
-            .main-box__user
               = image_tag "#{post.user.image}", size: "30x30", alt: "アイコン画像", class: "icon"
-              = post.user.name
+              - if user_signed_in?
+                = link_to post.user.name, "/users/#{post.user.id}", class: "link"
+              - else
+                = post.user.name
+              = "いいね: #{post.liked_users.count}"
+              - if user_signed_in?
+                = link_to "詳細", "/posts/#{post.id}"
