@@ -9,5 +9,13 @@ class UsersController < ApplicationController
     @user_ranks = all_ranks.select{ |post| post.user_id == @user.id }
   end
 
+  def edit
+  end
+
+  def update
+  end
+
+  def detroy
+  end
   
 end

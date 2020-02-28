@@ -16,14 +16,16 @@
         .search-form
           = form.text_field :keyword, placeholder: "投稿を検索する", class: "search-form__input"
           = form.submit "検索", class: "search-form__btn"
-        
-      = link_to '一句', new_post_path, class: 'link'
+
+      - if user_signed_in?  
+        = link_to '一句', new_post_path, class: 'link'
 
       - if user_signed_in?
         = image_tag "#{current_user.image}", size: "40x40", alt: "アイコン画像", class: "icon"
         = link_to current_user.name, "/users/#{current_user.id}", class: "link"
 
-      = link_to "通知", notifications_path, class: 'link'
+      - if user_signed_in? 
+        = link_to "通知", notifications_path, class: 'link'
 
       - if user_signed_in?
         = link_to "ログアウト", destroy_user_session_path, method: :delete
