@@ -1,50 +1,35 @@
-.container
-  .side
-    .side-box
-      = link_to "HOME", root_path, class: "link"
-    - if user_signed_in?
-      .side-box
-        = link_to "MyPage", "/users/#{current_user.id}", class: "link"
-      %hr
-    .side-box
-      フォロー
-    - if user_signed_in?  
-      - current_user.followings.each do |user|
-        .side-box
-          = image_tag "#{user.image}", size: "30x30", alt: "アイコン画像", class: "icon"
-          = link_to user.name, "/users/#{user.id}"
-    %hr
-    .side-box
-      フォロワー
-    - if user_signed_in?  
-      - current_user.followers.each do |user|
-        .side-box
-          = image_tag "#{user.image}", size: "30x30", alt: "アイコン画像", class: "icon"
-          = link_to user.name, "/users/#{user.id}"
-  .main
+.in-container.col-12
+  = render "shared/side"
+  
+  .main.col-10
     .main-box#show
-      .main-box__content
+      .main-box#show__content
         = simple_format(@post.content)
+        -if @post.image.file.nil?
+          = image_tag "senryu.com.png", size: "350x350", alt: "イメージ画像", class: "default-logo"
+        -else
+          = image_tag "#{@post.image}", size: "500x300", alt: "イメージ画像", class: "image"
       .main-box__bar
         = image_tag "#{@post.user.image}", size: "50x50", alt: "アイコン画像", class: "icon"
         = @post.user.name
+        = "いいね: #{@post.liked_users.count}"
         - if @post.user_id == current_user.id
           = link_to "削除", "/posts/#{@post.id}", method: :delete
-        = "いいね: #{@post.liked_users.count}"
         
       = form_with model: [@post, @comment], local: true do |f|
-        = f.text_area :text, placeholder: "コメントする", rows: "2"
+        = f.text_area :text, placeholder: "コメントする", rows: "2", class: "form__text"
         = f.submit "SEND"
 
       - if current_user.already_liked?(@post)
         = button_to 'いいねを取り消す', post_like_path(@post), method: :delete
       - else
         = button_to 'いいね', post_likes_path(@post)
+      %hr
 
       %p いいねしたユーザー
       - @post.liked_users.each do |user|
         = image_tag "#{user.image}", size: "30x30", alt: "アイコン画像", class: "icon"
-        = user.name
+        = link_to user.name, "/users/#{user.id}", class: "link"
       %hr
 
       .main-box__comment
@@ -52,7 +37,8 @@
         - @comments.each do |comment|
           .comment-box
             = image_tag "#{comment.user.image}", size: "30x30", alt: "アイコン画像", class: "icon"
-            = comment.user.name
+            -# = comment.user.name
+            = link_to comment.user.name, "/users/#{comment.user.id}", class: "link"
             = comment.text
             -if comment.user_id == current_user.id
               = link_to "削除", "/posts/#{@post.id}/comments/#{comment.id}", method: :delete

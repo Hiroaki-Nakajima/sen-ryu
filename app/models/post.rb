@@ -7,6 +7,8 @@ class Post < ApplicationRecord
 
   has_many :notifications, dependent: :destroy
 
+  mount_uploader :image, ImageUploader
+
   def self.search(search)
     return Post.all unless search
     Post.where('content LIKE(?)', "%#{search}%")
