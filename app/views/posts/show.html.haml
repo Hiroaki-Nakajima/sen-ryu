@@ -8,7 +8,7 @@
         -if @post.image.file.nil?
           = image_tag "senryu.com.png", size: "350x350", alt: "イメージ画像", class: "default-logo"
         -else
-          = image_tag "#{@post.image}", size: "500x300", alt: "イメージ画像", class: "image"
+          = image_tag "#{@post.image}", size: "350x350", alt: "イメージ画像", class: "image"
       .main-box__bar
         = image_tag "#{@post.user.image}", size: "50x50", alt: "アイコン画像", class: "icon"
         = @post.user.name
