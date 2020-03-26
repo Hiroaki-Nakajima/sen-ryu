@@ -7,20 +7,20 @@
       .left-info
         .main-box#best
           .main-box#best__content
-            = simple_format(@all_ranks[0].content)
-            -if @all_ranks[0].image.file.nil?
-              = image_tag "senryu.com.png", size: "180x180", alt: "イメージ画像", class: "default-logo"
-            -else
-              = image_tag "#{@all_ranks[0].image}", size: "220x220", alt: "イメージ画像", class: "image"
-          .main-box__bar
-            = image_tag "#{@all_ranks[0].user.image}", size: "40x40", alt: "アイコン画像", class: "icon"
-            - if user_signed_in?
-              = link_to @all_ranks[0].user.name, "/users/#{@all_ranks[0].user.id}", class: "link"
-            - else
-              = @all_ranks[0].user.name
-            = "いいね: #{@all_ranks[0].liked_users.count}"
-            - if user_signed_in?
-              = link_to "詳細", "/posts/#{@all_ranks[0].id}"
+          -#   = simple_format(@all_ranks[0].content)
+          -#   -if @all_ranks[0].image.file.nil?
+          -#     = image_tag "senryu.com.png", size: "180x180", alt: "イメージ画像", class: "default-logo"
+          -#   -else
+          -#     = image_tag "#{@all_ranks[0].image}", size: "220x220", alt: "イメージ画像", class: "image"
+          -# .main-box__bar
+          -#   = image_tag "#{@all_ranks[0].user.image}", size: "40x40", alt: "アイコン画像", class: "icon"
+          -#   - if user_signed_in?
+          -#     = link_to @all_ranks[0].user.name, "/users/#{@all_ranks[0].user.id}", class: "link"
+          -#   - else
+          -#     = @all_ranks[0].user.name
+          -#   = "いいね: #{@all_ranks[0].liked_users.count}"
+          -#   - if user_signed_in?
+          -#     = link_to "詳細", "/posts/#{@all_ranks[0].id}"
       .right-info
         = image_tag "senryu.com.png", size: "250x250", alt: "アイコン画像", class: "main-logo"
     %hr    
