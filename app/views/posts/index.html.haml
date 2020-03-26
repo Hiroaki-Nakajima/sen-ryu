@@ -7,20 +7,20 @@
       .left-info
         .main-box#best
           .main-box#best__content
-          -#   = simple_format(@top_rank.content)
-          -#   -if @top_rank.image.file.nil?
-          -#     = image_tag "senryu.com.png", size: "180x180", alt: "イメージ画像", class: "default-logo"
-          -#   -else
-          -#     = image_tag "#{@top_rank.image}", size: "220x220", alt: "イメージ画像", class: "image"
-          -# .main-box__bar
-          -#   = image_tag "#{@top_rank.user.image}", size: "40x40", alt: "アイコン画像", class: "icon"
-          -#   - if user_signed_in?
-          -#     = link_to @top_rank.user.name, "/users/#{@top_rank.user.id}", class: "link"
-          -#   - else
-          -#     = @top_rank.user.name
-          -#   = "いいね: #{@top_rank.liked_users.count}"
-          -#   - if user_signed_in?
-          -#     = link_to "詳細", "/posts/#{@top_rank.id}"
+            = simple_format(@top_rank.content)
+            -if @top_rank.image.file.nil?
+              = image_tag "senryu.com.png", size: "180x180", alt: "イメージ画像", class: "default-logo"
+            -else
+              = image_tag "#{@top_rank.image}", size: "220x220", alt: "イメージ画像", class: "image"
+          .main-box__bar
+            = image_tag "#{@top_rank.user.image}", size: "40x40", alt: "アイコン画像", class: "icon"
+            - if user_signed_in?
+              = link_to @top_rank.user.name, "/users/#{@top_rank.user.id}", class: "link"
+            - else
+              = @top_rank.user.name
+            = "いいね: #{@top_rank.liked_users.count}"
+            - if user_signed_in?
+              = link_to "詳細", "/posts/#{@top_rank.id}"
       .right-info
         = image_tag "senryu.com.png", size: "250x250", alt: "アイコン画像", class: "main-logo"
     %hr    
