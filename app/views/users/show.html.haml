@@ -5,18 +5,18 @@
     %p いいねランク第１位
     .info
       .left-info
-        - if @user_ranks[0]
+        - if @top_rank
           .main-box#best
             .main-box#best__content
-              = simple_format(@user_ranks[0].content)
-              -if @user_ranks[0].image.file.nil?
+              = simple_format(@top_rank.content)
+              -if @top_rank.image.file.nil?
                 = image_tag "senryu.com.png", size: "180x180", alt: "イメージ画像", class: "default-logo"
               -else
-                = image_tag "#{@user_ranks[0].image}", size: "220x220", alt: "イメージ画像", class: "image"
+                = image_tag "#{@top_rank.image}", size: "220x220", alt: "イメージ画像", class: "image"
             .main-box__bar
-              = image_tag "#{@user_ranks[0].user.image}", size: "40x40", alt: "アイコン画像", class: "icon"
-              = "いいね: #{@user_ranks[0].liked_users.count}"
-              = link_to "詳細", "/posts/#{@user_ranks[0].id}"
+              = image_tag "#{@top_rank.user.image}", size: "40x40", alt: "アイコン画像", class: "icon"
+              = "いいね: #{@top_rank.liked_users.count}"
+              = link_to "詳細", "/posts/#{@top_rank.id}"
             .main-box__user
         - else
           %p いいねされた投稿がありません

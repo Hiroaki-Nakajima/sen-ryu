@@ -5,8 +5,8 @@
     %p いいねランク第１位
     .info
       .left-info
-        .main-box#best
-          - if @top_rank
+        - if @top_rank
+          .main-box#best
             .main-box#best__content
               = simple_format(@top_rank.content)
               -if @top_rank.image.file.nil?
