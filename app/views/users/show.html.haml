@@ -22,7 +22,8 @@
           %p いいねされた投稿がありません
       .right-info
         .right-info__image 
-          = image_tag "#{@user.image}", size: "200x200", alt: "アイコン画像", class: "icon"
+          - if @user.image
+            = image_tag "#{@user.image}", size: "200x200", alt: "アイコン画像", class: "icon"
         .right-info__name
           = @user.name
           .follow
@@ -31,34 +32,36 @@
     %p いいねランク上位
     .content
       .content__best
-        - @user_ranks.each do |post|
-          .main-box
-            .main-box__content
-              = simple_format(post.content)
-              -if post.image.file.nil?
-                = image_tag "senryu.com.png", size: "100x100", alt: "イメージ画像", class: "default-logo"
-              -else
-                = image_tag "#{post.image}", size: "120x120", alt: "イメージ画像", class: "image"
-            .main-box__bar
-              = image_tag "#{post.user.image}", size: "30x30", alt: "アイコン画像", class: "icon"
-              = "いいね: #{post.liked_users.count}"
-              = link_to "詳細", "/posts/#{post.id}"
+        - if @user_ranks
+          - @user_ranks.each do |post|
+            .main-box
+              .main-box__content
+                = simple_format(post.content)
+                -if post.image.file.nil?
+                  = image_tag "senryu.com.png", size: "100x100", alt: "イメージ画像", class: "default-logo"
+                -else
+                  = image_tag "#{post.image}", size: "120x120", alt: "イメージ画像", class: "image"
+              .main-box__bar
+                = image_tag "#{post.user.image}", size: "30x30", alt: "アイコン画像", class: "icon"
+                = "いいね: #{post.liked_users.count}"
+                = link_to "詳細", "/posts/#{post.id}"
 
       %hr
       %p 最新投稿
       .content__new
-        - @user_posts.each do |post|
-          .main-box
-            .main-box__content
-              = simple_format(post.content)
-              -if post.image.file.nil?
-                = image_tag "senryu.com.png", size: "100x100", alt: "イメージ画像", class: "default-logo"
-              -else
-                = image_tag "#{post.image}", size: "120x100", alt: "イメージ画像", class: "image"
-            .main-box__bar
-              = image_tag "#{post.user.image}", size: "30x30", alt: "アイコン画像", class: "icon"
-              = "いいね: #{post.liked_users.count}"
-              = link_to "詳細", "/posts/#{post.id}"
+        - if @user_posts
+          - @user_posts.each do |post|
+            .main-box
+              .main-box__content
+                = simple_format(post.content)
+                -if post.image.file.nil?
+                  = image_tag "senryu.com.png", size: "100x100", alt: "イメージ画像", class: "default-logo"
+                -else
+                  = image_tag "#{post.image}", size: "120x100", alt: "イメージ画像", class: "image"
+              .main-box__bar
+                = image_tag "#{post.user.image}", size: "30x30", alt: "アイコン画像", class: "icon"
+                = "いいね: #{post.liked_users.count}"
+                = link_to "詳細", "/posts/#{post.id}"
           
       
 
