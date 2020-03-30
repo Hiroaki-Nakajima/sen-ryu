@@ -24,7 +24,7 @@ Things you may want to cover:
 * ...
 
 * Name
-  - 川柳.com (senryu.com)
+  - 川柳.com (sen-ryu)
 
 * URL
   - http://18.180.186.227/
