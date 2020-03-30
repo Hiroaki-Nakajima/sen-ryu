@@ -23,6 +23,33 @@ Things you may want to cover:
 
 * ...
 
+* Name
+  - 川柳.com (senryu.com)
+
+* URL
+  - http://18.180.186.227/
+
+* Overview
+  - 川柳&画像投稿型SNS
+  - ログイン機能
+  - 他ユーザーの投稿へのコメント機能
+  - キーワード検索機能
+  - 気に入った川柳へのいいね機能
+  - いいね数によるランキング表示機能
+  - 気に入ったユーザーのフォロー機能
+
+* Intention
+  - IT技術を利用した日本文化の発展
+  - 幅広い年齢層の参画できるプラットフォーム作成
+
+* DEMO
+
+* TO be implemented
+  - コメント機能の非同期通信化
+  - SNSからのログイン機能
+
+* Database
+
 ## itemsテーブル
 
 |Column|Type|Options|
