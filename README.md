@@ -70,18 +70,18 @@ Things you may want to cover:
 |image|string|
 
 ### Association
-has_many :posts, dependent: :destroy
-has_many :comments
-has_many :likes, dependent: :destroy
-has_many :liked_posts, through: :likes, source: :post
 
-has_many :relationships
-has_many :followings, through: :relationships, source: :follow
-has_many :reverse_of_relationships, class_name: 'Relationship', foreign_key: 'follow_id'
-has_many :followers, through: :reverse_of_relationships, source: :user
+- has_many :posts, dependent: :destroy
+- has_many :comments
+- has_many :likes, dependent: :destroy
+- has_many :liked_posts, through: :likes, source: :post
 
-has_many :active_notifications, class_name: 'Notification', foreign_key: 'visitor_id', dependent: :destroy
-has_many :passive_notifications, class_name: 'Notification', foreign_key: 'visited_id', dependent: :destroy
+- has_many :relationships
+- has_many :followings, through: :relationships, source: :follow
+- has_many :reverse_of_relationships, class_name: 'Relationship', foreign_key: 'follow_id'
+- has_many :followers, through: :reverse_of_relationships, source: :user
+- has_many :active_notifications, class_name: 'Notification', foreign_key: 'visitor_id', dependent: :destroy
+- has_many :passive_notifications, class_name: 'Notification', foreign_key: 'visited_id', dependent: :destroy
 
 
 ## postsテーブル
@@ -93,11 +93,11 @@ has_many :passive_notifications, class_name: 'Notification', foreign_key: 'visit
 |user_id|integer|null: false|foreign_key: true|
 
 ### Association
-belongs_to :user
-has_many :comments
-has_many :likes
-has_many :liked_users, through: :likes, source: :user
-has_many :notifications, dependent: :destroy
+- belongs_to :user
+- has_many :comments
+- has_many :likes
+- has_many :liked_users, through: :likes, source: :user
+- has_many :notifications, dependent: :destroy
 
 
 ## commentsテーブル
@@ -110,9 +110,9 @@ has_many :notifications, dependent: :destroy
 
 ### Association
 
-belongs_to :user
-belongs_to :post
-has_many :notifications, dependent: :destroy
+- belongs_to :user
+- belongs_to :post
+- has_many :notifications, dependent: :destroy
 
 
 ## likesテーブル
@@ -123,8 +123,9 @@ has_many :notifications, dependent: :destroy
 |user_id|integer|null: false|foreign_key: true|
 
 ### Association
-belongs_to :post
-belongs_to :user
+
+- belongs_to :post
+- belongs_to :user
 
 
 ## relationshipsテーブル
@@ -135,8 +136,9 @@ belongs_to :user
 |follow_id|integer|null: false|foreign_key: true|
 
 ### Association
-belongs_to :user
-belongs_to :follow, class_name: 'User'
+
+- belongs_to :user
+- belongs_to :follow, class_name: 'User'
 
 
 ## notificationsテーブル
@@ -151,7 +153,8 @@ belongs_to :follow, class_name: 'User'
 |checked|integer|null: false|foreign_key: true|
 
 ### Association
-belongs_to :post, optional: true
-belongs_to :comment, optional: true
-belongs_to :visitor, class_name: 'User', foreign_key: 'visitor_id', optional: true
-belongs_to :visited, class_name: 'User', foreign_key: 'visited_id', optional: true
+
+- belongs_to :post, optional: true
+- belongs_to :comment, optional: true
+- belongs_to :visitor, class_name: 'User', foreign_key: 'visitor_id', optional: true
+- belongs_to :visited, class_name: 'User', foreign_key: 'visited_id', optional: true
