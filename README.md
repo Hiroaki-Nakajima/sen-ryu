@@ -43,7 +43,17 @@ Things you may want to cover:
   - 幅広い年齢層の参画できるプラットフォーム作成
 
 * DEMO
-
+  - 川柳投稿
+  ![e64eaca9c7245c127abe0a845106b36e](https://user-images.githubusercontent.com/60601764/77885368-e1b10f80-72a1-11ea-9363-ea16375427ef.gif)
+  - いいね機能
+  ![dc344b1296a63701a049a1c5358d905b](https://user-images.githubusercontent.com/60601764/77885387-ec6ba480-72a1-11ea-8935-0784aabb8a29.gif)
+  - コメント機能
+  ![583ea7b05dfd7b58c74a3fee0afb23ab](https://user-images.githubusercontent.com/60601764/77885402-f097c200-72a1-11ea-8109-7719c26ddaa5.gif)
+  - 通知機能
+  ![86da361d4e7d16dd9b8dd4b10d21a4dc](https://user-images.githubusercontent.com/60601764/77885426-f55c7600-72a1-11ea-9125-64b2f3b536a3.gif)
+  - フォロー機能
+  ![7d08e0298a7801ed6a87ac3ae0187b61](https://user-images.githubusercontent.com/60601764/77885436-f7bed000-72a1-11ea-8ef2-d3f0efc8e6a6.gif)
+  
 * TO be implemented
   - コメント機能の非同期通信化
   - SNSからのログイン機能
