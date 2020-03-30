@@ -60,58 +60,6 @@ Things you may want to cover:
 
 * Database
 
-## itemsテーブル
-
-|Column|Type|Options|
-|------|----|-------|
-|name|string|null: false|
-|price|integer|null: false|
-|explain|text|null: false|
-|postage|integer|null: false|
-|region|string|null: false|
-|state|string|nill: false|
-|size|integer|
-|category_id|integer|null: false|
-|user_id|integer|null: false|
-
-### Association
-- has_many :images
-- belongs_to :user
-- belongs_to :category
-
-
-## imagesテーブル
-
-|Column|Type|Options|
-|------|----|-------|
-|image|string|null: false|
-|item_id|integer|null: false|
-
-### Association
-- belongs_to :item
-
-
-## categoriesテーブル
-
-|Column|Type|Options|
-|------|----|-------|
-|name|string|null: false|
-
-### Association
-- belongs_to :item
-- belongs_to :size
-
-
-## sizesテーブル
-
-|Column|Type|Options|
-|------|----|-------|
-|name|string|null: false|
-
-### Association
-- belongs_to :category
-
-
 ## usersテーブル
 
 |Column|Type|Options|
@@ -122,37 +70,88 @@ Things you may want to cover:
 |image|string|
 
 ### Association
-- has_many :items
-- has_many :address
-- belongs_to :person
+has_many :posts, dependent: :destroy
+has_many :comments
+has_many :likes, dependent: :destroy
+has_many :liked_posts, through: :likes, source: :post
+
+has_many :relationships
+has_many :followings, through: :relationships, source: :follow
+has_many :reverse_of_relationships, class_name: 'Relationship', foreign_key: 'follow_id'
+has_many :followers, through: :reverse_of_relationships, source: :user
+
+has_many :active_notifications, class_name: 'Notification', foreign_key: 'visitor_id', dependent: :destroy
+has_many :passive_notifications, class_name: 'Notification', foreign_key: 'visited_id', dependent: :destroy
 
 
-## personsテーブル
-
-|Column|Type|Options|
-|------|----|-------|
-|first_name|string|null: false|
-|last_name|string|null: false|
-|first_name_kana|string|null: false|
-|phone_number|integer|null: false, unique: true|
-|year_birth_at|string|null: false|
-|month_birth_at|string|null: false|
-|day_birth_at|string|null: false|
-|user_id|integer|null: false|
-
-### Association
-- belongs_to :user
-
-
-## addressesテーブル
+## postsテーブル
 
 |Column|Type|Options|
 |------|----|-------|
-|user_id|integer|null: false|
-|post_number|integer|null: false|
-|city|string|null: false|
-|town|string|null: false|
-|building|string|
+|content|string|
+|image|string|
+|user_id|integer|null: false|foreign_key: true|
 
 ### Association
-- belongs_to :user
+belongs_to :user
+has_many :comments
+has_many :likes
+has_many :liked_users, through: :likes, source: :user
+has_many :notifications, dependent: :destroy
+
+
+## commentsテーブル
+
+|Column|Type|Options|
+|------|----|-------|
+|text|text|
+|user_id|integer|null: false|foreign_key: true|
+|post_id|integer|null: false|foreign_key: true|
+
+### Association
+
+belongs_to :user
+belongs_to :post
+has_many :notifications, dependent: :destroy
+
+
+## likesテーブル
+
+|Column|Type|Options|
+|------|----|-------|
+|post_id|integer|null: false|foreign_key: true|
+|user_id|integer|null: false|foreign_key: true|
+
+### Association
+belongs_to :post
+belongs_to :user
+
+
+## relationshipsテーブル
+
+|Column|Type|Options|
+|------|----|-------|
+|user_id|integer|null: false|foreign_key: true|
+|follow_id|integer|null: false|foreign_key: true|
+
+### Association
+belongs_to :user
+belongs_to :follow, class_name: 'User'
+
+
+## notificationsテーブル
+
+|Column|Type|Options|
+|------|----|-------|
+|visitor_id|integer|null: false|foreign_key: true|
+|visited_id|integer|null: false|foreign_key: true|
+|post_id|integer|foreign_key: true|
+|comment_id|integer|foreign_key: true|
+|action|string|null: false|foreign_key: true|
+|checked|integer|null: false|foreign_key: true|
+
+### Association
+belongs_to :post, optional: true
+belongs_to :comment, optional: true
+belongs_to :visitor, class_name: 'User', foreign_key: 'visitor_id', optional: true
+belongs_to :visited, class_name: 'User', foreign_key: 'visited_id', optional: true
